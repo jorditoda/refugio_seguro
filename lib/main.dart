@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-
+//https://pub.dev/packages/google_maps_flutter
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Text("data")
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addShelter,
+        tooltip: 'Añadir refugio',
+        child: const Icon(Icons.add),
+      ),
     );
+  }
+
+  void _addShelter() {
   }
 }
