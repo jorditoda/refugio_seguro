@@ -8,31 +8,25 @@ part 'shelter.g.dart';
 
 @JsonSerializable()
 class Shelter {
-  int id;
+  int? id;
+  String? name;
+  String? phoneNumber;
+  int? maxCapacity;
+  int? currentAvailability;
+  int? roomsQty;
+  int? bathsQty;
+  int? washingMachinesQty;
+  Location? location;
+  Food? food;
+  CleaningUtility? cleaningUtilities;
+  Toiletry? toiletries;
 
-  String name;
+  Shelter();
 
-  final int maxCapacity;
-
-  final int currentAvailability;
-
-  final int roomsQty;
-
-  final int bathsQty;
-
-  final int washingMachinesQty;
-
-  final Location location;
-
-  final Food food;
-
-  final CleaningUtility cleaningUtilities;
-
-  final Toiletry toiletries;
-
-  Shelter({
+  Shelter.withParams({
     required this.id,
     required this.name,
+    required this.phoneNumber,
     required this.maxCapacity,
     required this.currentAvailability,
     required this.roomsQty,
@@ -44,7 +38,8 @@ class Shelter {
     required this.toiletries,
   });
 
-  factory Shelter.fromJson(Map<String, dynamic> json) => _$ShelterFromJson(json);
+  factory Shelter.fromJson(Map<String, dynamic> json) =>
+      _$ShelterFromJson(json);
+
   Map<String, dynamic> toJson() => _$ShelterToJson(this);
 }
-

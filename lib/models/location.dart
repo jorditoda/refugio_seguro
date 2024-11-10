@@ -4,29 +4,21 @@ part 'location.g.dart';
 
 @JsonSerializable()
 class Location {
-  final int id;
-
-  final double latitud;
-
-  final double longitud;
-
-  final String postalCode;
-
-  final String city;
-
-  final String streetName;
-
-  final int? flat;
-
-  final String? door;
-
-  final String? other;
+  final int? id;
+  double? latitud;
+  double? longitud;
+  String? postalCode;
+  String? city;
+  String? streetName;
+  int? flat;
+  String? door;
+  String? other;
 
   Location({
-    required this.id,
+    this.id,
     required this.latitud,
     required this.longitud,
-    required this.postalCode,
+    this.postalCode,
     required this.city,
     required this.streetName,
     this.flat,
@@ -34,7 +26,12 @@ class Location {
     this.other,
   });
 
-  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
-  Map<String, dynamic> toJson() => _$LocationToJson(this);
-}
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
 
+  Map<String, dynamic> toJson() => _$LocationToJson(this);
+
+  String getData() {
+    return "$streetName ${door ?? ""} ${flat ?? ""}, $city $postalCode, España";
+  }
+}
