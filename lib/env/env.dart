@@ -6,4 +6,6 @@ part 'env.g.dart';
 abstract class Env {
   @EnviedField(varName: 'API_URL', obfuscate: true)
   static String API_URL = _Env.API_URL;
+  @EnviedField(varName: 'LOCAL_API_URL', obfuscate: true)
+  static String LOCAL_API_URL = _Env.LOCAL_API_URL;
 }

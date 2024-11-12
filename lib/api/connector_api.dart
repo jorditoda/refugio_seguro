@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:refugio_seguro/env/env.dart';
@@ -13,8 +14,7 @@ Map<String, String> headers = {
 const String shelterPath = '/shelters';
 
 Future<List<Shelter>> getSheltersByLocation(Position p) async {
-  print("Base url: " + Env.API_URL);
-  var url = Uri.parse(Env.API_URL + shelterPath);
+  var url = Uri.parse(_getBaseUrl() + shelterPath);
 
   final response = await http.get(url, headers: headers);
   print(response.statusCode);
@@ -51,7 +51,7 @@ Future<List<Shelter>> getSheltersByLocation(Position p) async {
 }
 
 Future<Shelter> saveShelter(Shelter shelterToBeCreated) async {
-  var url = Uri.parse(Env.API_URL + shelterPath);
+  var url = Uri.parse(_getBaseUrl() + shelterPath);
 
   print(jsonEncode(shelterToBeCreated.toJson()));
   final response = await http.post(url,
@@ -66,7 +66,7 @@ Future<Shelter> saveShelter(Shelter shelterToBeCreated) async {
 }
 
 Future<Shelter> updateShelter(Shelter shelterToBeUpdated) async {
-  var url = Uri.parse(Env.API_URL + '$shelterPath/${shelterToBeUpdated.id!}');
+  var url = Uri.parse(_getBaseUrl() + '$shelterPath/${shelterToBeUpdated.id!}');
 
   final response = await http.put(url,
       headers: headers, body: jsonEncode(shelterToBeUpdated.toJson()));
@@ -77,4 +77,16 @@ Future<Shelter> updateShelter(Shelter shelterToBeUpdated) async {
     return Shelter.fromJson(jsonResponse['shelter']);
   }
   throw Future.error(jsonDecode(response.body));
+}
+
+_getBaseUrl() {
+  String baseUrl;
+  if (kDebugMode) {
+    baseUrl = Env.LOCAL_API_URL;
+  } else {
+    baseUrl = Env.API_URL;
+  }
+
+  print("Base url: " + baseUrl);
+  return baseUrl;
 }
